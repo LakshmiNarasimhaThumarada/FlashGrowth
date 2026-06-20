@@ -1,0 +1,90 @@
+# Dependency directories
+node_modules/
+**/node_modules/
+jspm_packages/
+web_modules/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+server/.env
+
+# Builds and compile caches
+dist/
+dist-ssr/
+build/
+bin/
+obj/
+out/
+.cache/
+.parcel-cache/
+.eslintcache
+.tsbuildinfo
+tsconfig.tsbuildinfo
+server/dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports and dumps
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data / Server directories
+pids
+lib-cov
+coverage
+.nyc_output
+server/pids/
+server/lib-cov/
+server/coverage/
+
+# Database / SQLite
+server/prisma/*.db
+server/prisma/*.db-journal
+server/prisma/dev.db
+server/prisma/dev.db-journal
+*.db
+*.sqlite
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Cypress / Test screenshots
+cypress/screenshots/
+cypress/videos/
+
+# Temporary / Scratch files
+.temp/
+temp/
+tmp/
+*.tmp
+scratch/

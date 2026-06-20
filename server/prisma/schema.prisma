@@ -1,0 +1,153 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// NOTE: SQLite does not support native enums.
+// Role values: USER, ADMIN
+// InquiryStatus values: PENDING, CONTACTED, IN_PROGRESS, CLOSED
+// PaymentStatus values: PENDING, SUCCESS, FAILED
+// ClientProjectStatus values: ONBOARDING, IN_PROGRESS, REVIEW, DELIVERED, PAUSED, CANCELLED
+// NotificationType values: NEW_USER, NEW_INQUIRY, PAYMENT_SUCCESS, STATUS_CHANGE, SYSTEM
+
+model User {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  fullName       String?
+  avatarUrl      String?
+  role           String          @default("USER")       // USER | ADMIN
+  googleId       String?         @unique
+  password       String?
+  lastLogin      DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  inquiries      Inquiry[]
+  notifications  Notification[]
+  clientProjects ClientProject[]
+}
+
+model Inquiry {
+  id                 String             @id @default(uuid())
+  fullName           String
+  mobileNumber       String
+  email              String
+  businessType       String
+  companyName        String?
+  projectDescription String
+  totalQuote         Float
+  status             String             @default("PENDING") // PENDING | CONTACTED | IN_PROGRESS | CLOSED
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  userId             String?
+  user               User?              @relation(fields: [userId], references: [id])
+
+  selectedServices   ServiceSelection[]
+  payments           Payment[]
+  clientProject      ClientProject?
+}
+
+model ServiceSelection {
+  id          String   @id @default(uuid())
+  serviceId   String
+  name        String
+  price       Float
+  inquiryId   String
+  inquiry     Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id            String   @id @default(uuid())
+  amount        Float
+  currency      String
+  gateway       String
+  gatewayId     String   @unique
+  paymentStatus String   @default("PENDING") // PENDING | SUCCESS | FAILED
+  signature     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  inquiryId     String
+  inquiry       Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id           String   @id @default(uuid())
+  clientName   String
+  category     String
+  services     String   @default("[]")  // JSON-encoded array of service names
+  result       String
+  imageUrl     String
+  color        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ServicePack {
+  id          String        @id @default(uuid())
+  slug        String        @unique
+  title       String
+  description String
+  tagline     String
+  iconName    String
+  order       Int           @default(0)
+  visible     Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  services    ServiceItem[]
+}
+
+model ServiceItem {
+  id          String      @id @default(uuid())
+  slug        String      @unique
+  name        String
+  description String
+  price       Float
+  packId      String
+  pack        ServicePack @relation(fields: [packId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  type      String   // NEW_USER | NEW_INQUIRY | PAYMENT_SUCCESS | STATUS_CHANGE | SYSTEM
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ClientProject {
+  id          String   @id @default(uuid())
+  clientName  String
+  companyName String?
+  email       String
+  status      String   @default("ONBOARDING") // ONBOARDING | IN_PROGRESS | REVIEW | DELIVERED | PAUSED | CANCELLED
+  notes       String?
+  totalQuote  Float
+  services    String   @default("[]") // JSON-encoded array of selected service names
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  inquiryId   String?  @unique
+  inquiry     Inquiry? @relation(fields: [inquiryId], references: [id])
+
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+}
+
+model SiteSettings {
+  id             String   @id @default("settings")
+  stripePublicKey String   @default("")
+  razorpayKeyId   String   @default("")
+  contactEmail   String   @default("marketing@flashgrowth.com")
+  contactPhone   String   @default("+1 (555) 019-2834")
+  contactAddress String   @default("100 Pine St, San Francisco, CA")
+  updatedAt      DateTime @updatedAt
+}
