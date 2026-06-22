@@ -33,6 +33,7 @@ COPY . .
 
 # Build typescript for server
 WORKDIR /app/server
+RUN npm run prisma:generate
 RUN npm run build
 
 # Start both services
