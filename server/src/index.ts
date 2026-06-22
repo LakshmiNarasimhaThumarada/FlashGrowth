@@ -59,6 +59,11 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() })
 })
 
+// Root status check route for uptime monitors
+app.get('/', (req: Request, res: Response) => {
+  res.send('Flash Growth API is online and running!')
+})
+
 // Register Api Routes
 import authRoutes from './routes/auth'
 import inquiryRoutes from './routes/inquiry'

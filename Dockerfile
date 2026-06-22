@@ -36,5 +36,8 @@ WORKDIR /app/server
 RUN npm run prisma:generate
 RUN npm run build
 
+# Expose port
+EXPOSE 5000
+
 # Start both services
 CMD ["npm", "start"]
