@@ -1,19 +1,20 @@
-# Dependency directories
+# Dependency Directories
 node_modules/
 **/node_modules/
 jspm_packages/
 web_modules/
 
-# Local env files
+# Local Environment Variables
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 .env.*.local
-server/.env
+**/ .env
+**/.env.*
 
-# Builds and compile caches
+# Builds and Compile Caches
 dist/
 dist-ssr/
 build/
@@ -23,9 +24,23 @@ out/
 .cache/
 .parcel-cache/
 .eslintcache
-.tsbuildinfo
+*.tsbuildinfo
 tsconfig.tsbuildinfo
-server/dist/
+
+# WhatsApp Web Bot Authentication & Session Cache
+.wwebjs_auth/
+.wwebjs_cache/
+**/.wwebjs_auth/
+**/.wwebjs_cache/
+
+# Databases (SQLite / Prisma)
+*.db
+*.db-journal
+*.sqlite
+dev.db
+dev.db-journal
+**/prisma/*.db
+**/prisma/*.db-journal
 
 # Logs
 logs/
@@ -36,27 +51,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Diagnostic reports and dumps
+# Diagnostic Reports and Dumps
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# Runtime data / Server directories
-pids
-lib-cov
-coverage
-.nyc_output
-server/pids/
-server/lib-cov/
-server/coverage/
-
-# Database / SQLite
-server/prisma/*.db
-server/prisma/*.db-journal
-server/prisma/dev.db
-server/prisma/dev.db-journal
-*.db
-*.sqlite
-
-# IDEs and Editors
+# IDEs, Editors, and OS files
 .idea/
 .vscode/
 *.suo
@@ -69,8 +67,6 @@ server/prisma/dev.db-journal
 .settings/
 *.sublime-project
 *.sublime-workspace
-
-# Operating System Files
 .DS_Store
 .DS_Store?
 ._*
@@ -78,7 +74,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Cypress / Test screenshots
+# Cypress / Test Screenshots and Videos
 cypress/screenshots/
 cypress/videos/
 
@@ -88,3 +84,5 @@ temp/
 tmp/
 *.tmp
 scratch/
+test-*.js
+list-*.js
