@@ -20,7 +20,7 @@
 
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const { GoogleGenAI } = require('@google/generative-ai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 require('dotenv').config();
 
 // Ensure Gemini API Key is available
@@ -88,7 +88,7 @@ HOW YOU SHOULD BEHAVE:
 `;
 
 // Initialize Google Generative AI (using gemini-1.5-flash as it is fast and efficient)
-const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
   model: 'gemini-1.5-flash',
   systemInstruction: SYSTEM_INSTRUCTION
