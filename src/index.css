@@ -258,16 +258,65 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 20px 48px;
+  background: transparent;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-bar .nav-logo-text {
+  color: #ffffff;
+  transition: color 0.4s ease;
+}
+
+.nav-bar .nav-links a {
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.4s ease;
+}
+
+.nav-bar .nav-links a:hover {
+  color: #ffffff;
+}
+
+.nav-bar .nav-profile-btn {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+}
+
+.nav-bar .nav-profile-btn:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-bar--scrolled {
   padding: 14px 48px;
-  background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+}
+
+.nav-bar--scrolled .nav-logo-text {
+  color: var(--color-black);
+}
+
+.nav-bar--scrolled .nav-links a {
+  color: var(--color-gray-600);
+}
+
+.nav-bar--scrolled .nav-links a:hover {
+  color: var(--color-black);
+}
+
+.nav-bar--scrolled .nav-profile-btn {
+  color: var(--color-charcoal);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.nav-bar--scrolled .nav-profile-btn:hover {
+  border-color: var(--color-black);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .nav-logo {

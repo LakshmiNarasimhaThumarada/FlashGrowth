@@ -73,15 +73,13 @@ export function Navbar() {
                   e.stopPropagation()
                   setDropdownOpen(!dropdownOpen)
                 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 hover:border-gray-400 transition cursor-pointer"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full transition cursor-pointer nav-profile-btn"
                 style={{
-                  background: 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
                   padding: '6px 14px',
                   borderRadius: '30px',
-                  border: '1px solid #E5E7EB',
                   fontSize: '0.85rem',
                   fontWeight: 600,
                   cursor: 'pointer'
@@ -213,7 +211,7 @@ export function Navbar() {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            color: '#0A0A0A',
+            color: scrolled ? '#0A0A0A' : '#ffffff',
             padding: '4px',
           }}
         >
