@@ -97,15 +97,31 @@ const model = genAI.getGenerativeModel({
 // Cache chat sessions to maintain context history
 const chatSessions = new Map();
 
+// Determine Puppeteer options based on environment
+const puppeteerArgs = [
+  '--no-sandbox',
+  '--disable-setuid-sandbox',
+  '--disable-dev-shm-usage',
+  '--disable-gpu'
+];
+
+const puppeteerOptions = {
+  headless: true,
+  args: puppeteerArgs
+};
+
+// If running in Linux (e.g. Render/Docker), use the system-installed Chromium to avoid launch issues
+if (process.platform === 'linux') {
+  puppeteerOptions.executablePath = '/usr/bin/chromium';
+  console.log('🤖 Running in Linux container. Using system Chromium at /usr/bin/chromium');
+}
+
 // Initialize WhatsApp Web Client with Local Authentication (saves logins to avoid scanning QR every time)
 const client = new Client({
   authStrategy: new LocalAuth({
     dataPath: './.wwebjs_auth'
   }),
-  puppeteer: {
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  }
+  puppeteer: puppeteerOptions
 });
 
 // Print QR code in console for login
@@ -161,4 +177,7 @@ client.on('message', async (msg) => {
 });
 
 // Start the WhatsApp Client
-client.initialize();
+console.log('🤖 Initializing WhatsApp client connection...');
+client.initialize().catch(err => {
+  console.error('❌ Failed to initialize WhatsApp client:', err);
+});
