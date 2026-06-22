@@ -3,7 +3,6 @@ import { Services } from '../components/Services'
 import { Portfolio } from '../components/Portfolio'
 import { Contact } from '../components/Contact'
 import { Footer } from '../components/Footer'
-import { Background3D } from '../components/Background3D'
 
 export function LandingPage() {
   return (
@@ -97,12 +96,14 @@ export function LandingPage() {
         }
       `}</style>
 
-      {/* 1. Immersive 3D Hero Section (Beneath Navbar) */}
+      {/* 1. Immersive Hero Section (Beneath Navbar) */}
       <div style={{
         position: 'relative',
         width: '100%',
         height: 'calc(100vh - 90px)', // Perfectly fills viewport beneath the fixed navbar
         backgroundColor: '#030305',
+        backgroundImage: 'radial-gradient(circle at center, rgba(0, 102, 255, 0.15) 0%, rgba(3, 3, 5, 1) 75%), linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
+        backgroundSize: '100% 100%, 50px 50px, 50px 50px',
         overflow: 'hidden',
         borderBottom: '1px solid rgba(255,255,255,0.05)',
         display: 'flex',
@@ -110,9 +111,6 @@ export function LandingPage() {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        {/* Background 3D Cinematic Animation */}
-        <Background3D />
-        
         {/* Floating title overlay */}
         <div style={{
           position: 'relative',
@@ -177,7 +175,7 @@ export function LandingPage() {
               textShadow: '0 2px 10px rgba(0,0,0,0.5)'
             }}
           >
-            A high-end cinematic simulation of our workspace ecosystem: from RAW cinematography rigs and video edit timelines, to vector designs, AI automations, neural networks, and live dashboards.
+            We build high-performance digital products, creative media, and automated growth systems. Scale your brand with modern digital engineering.
           </motion.p>
         </div>
       </div>
