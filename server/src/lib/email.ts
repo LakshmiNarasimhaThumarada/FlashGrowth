@@ -203,3 +203,45 @@ export async function sendStatusUpdateEmail(payload: StatusUpdateEmailPayload): 
     html: baseTemplate(body),
   }).catch(e => console.error('[Status Update Email Error]:', e))
 }
+
+export interface ContactFormEmailPayload {
+  name: string
+  email: string
+  phone: string
+  message: string
+}
+
+export async function sendContactFormSubmission(payload: ContactFormEmailPayload): Promise<void> {
+  const { name, email, phone, message } = payload
+
+  const body = `
+    <h2 style="margin-top: 0; color: ${BRAND_BLUE};">✉️ New Contact Form Message</h2>
+    <p>You have received a new message from the contact form on your website.</p>
+    
+    <table style="width:100%; border-collapse: collapse; font-size: 14px; margin-top: 20px; border: 1px solid #dee2e6;">
+      <tr>
+        <td style="padding:10px 14px; background:#f8f9fa; font-weight:600; width:140px; border-right:1px solid #dee2e6; border-bottom:1px solid #dee2e6;">Sender Name</td>
+        <td style="padding:10px 14px; border-bottom:1px solid #dee2e6;">${name}</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 14px; background:#f8f9fa; font-weight:600; border-right:1px solid #dee2e6; border-bottom:1px solid #dee2e6;">Email Address</td>
+        <td style="padding:10px 14px; border-bottom:1px solid #dee2e6;"><a href="mailto:${email}" style="color:${BRAND_BLUE}; text-decoration:none;">${email}</a></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 14px; background:#f8f9fa; font-weight:600; border-right:1px solid #dee2e6; border-bottom:1px solid #dee2e6;">Phone Number</td>
+        <td style="padding:10px 14px; border-bottom:1px solid #dee2e6;">${phone}</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 14px; background:#f8f9fa; font-weight:600; border-right:1px solid #dee2e6; vertical-align:top;">Message</td>
+        <td style="padding:10px 14px; white-space:pre-wrap; line-height:1.5;">${message}</td>
+      </tr>
+    </table>
+  `
+
+  await resend.emails.send({
+    from: FROM_SYSTEM,
+    to: 'flashgrowth06@gmail.com',
+    subject: `✉️ New Contact Form: ${name}`,
+    html: baseTemplate(body),
+  }).catch(e => console.error('[Contact Form Email Error]:', e))
+}

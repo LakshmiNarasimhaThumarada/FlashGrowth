@@ -183,8 +183,41 @@ export function LandingPage() {
         </motion.p>
       </div>
 
-      {/* Bento Grid of 5 Client Work boxes */}
-      <div className="bento-grid" style={{ marginBottom: '80px' }}>
+      {/* Bento Grid Section with Background Video */}
+      <div style={{ position: 'relative', width: '100%' }}>
+        {/* Background Video container */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          overflow: 'hidden',
+          pointerEvents: 'none',
+          opacity: 0.05
+        }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          >
+            <source src="/bento-bg.mp4" type="video/mp4" />
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-flowing-wave-lines-42045-large.mp4" type="video/mp4" />
+          </video>
+          {/* Glassmorphic blur to smooth out video edges and details */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backdropFilter: 'blur(3px)',
+            backgroundColor: 'rgba(255,255,255,0.3)'
+          }} />
+        </div>
+
+        <div className="bento-grid" style={{ marginBottom: '80px', position: 'relative', zIndex: 1 }}>
 
         {/* ── Box 1: Video Editing (Wide: 7 Columns) ── */}
         <motion.div
@@ -797,6 +830,7 @@ export function LandingPage() {
         </motion.div>
 
       </div>
+    </div>
 
       {/* ── Additional Core Sections (Services, Projects, Contact, Footer) ── */}
       <div id="services">

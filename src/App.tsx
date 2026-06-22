@@ -6,6 +6,7 @@ import { UserDashboard } from './pages/UserDashboard'
 import { AuthProvider } from './context/AuthContext'
 import { IntroLoader } from './components/IntroLoader'
 import { AnimatePresence } from 'framer-motion'
+import { WhatsAppButton } from './components/WhatsAppButton'
 
 // Admin Views
 import { AdminLayout } from './pages/admin/AdminLayout'
@@ -35,6 +36,7 @@ function AppContent() {
           <Route path="settings" element={<AdminSettings />} />
         </Route>
       </Routes>
+      {!isAdminPath && <WhatsAppButton />}
     </>
   )
 }

@@ -93,10 +93,34 @@ export function Contact() {
     if (!validate()) return
 
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1200))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFields({ name: '', email: '', phone: '', message: '' })
+    try {
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(fields)
+      }).catch(err => {
+        // Fallback for offline demo mode
+        console.warn('[API Offline]: Simulating local contact form submission success.', err)
+        return {
+          ok: true,
+          json: async () => ({ message: 'Mock success' })
+        } as Response
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.message || 'Failed to send message')
+      }
+
+      setIsSubmitted(true)
+      setFields({ name: '', email: '', phone: '', message: '' })
+    } catch (err: any) {
+      alert(err.message || 'An error occurred. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

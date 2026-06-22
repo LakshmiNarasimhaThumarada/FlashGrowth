@@ -69,6 +69,7 @@ import servicesRoutes from './routes/services'
 import notificationsRoutes from './routes/notifications'
 import clientProjectsRoutes from './routes/clientProjects'
 import settingsRoutes from './routes/settings'
+import contactRoutes from './routes/contact'
 
 app.use('/api/auth', authRoutes)
 app.use('/api/inquiries', inquiryRoutes)
@@ -79,6 +80,7 @@ app.use('/api/services', servicesRoutes)
 app.use('/api/notifications', notificationsRoutes)
 app.use('/api/client-projects', clientProjectsRoutes)
 app.use('/api/settings', settingsRoutes)
+app.use('/api/contact', contactRoutes)
 
 // Global error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
