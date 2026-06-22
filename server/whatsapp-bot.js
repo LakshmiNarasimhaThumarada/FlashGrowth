@@ -87,10 +87,10 @@ HOW YOU SHOULD BEHAVE:
 - Be extremely polite, engaging, and clear.
 `;
 
-// Initialize Google Generative AI (using gemini-1.5-flash as it is fast and efficient)
+// Initialize Google Generative AI (using gemini-2.5-flash-lite as it is fast and efficient)
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
-  model: 'gemini-1.5-flash',
+  model: 'gemini-2.5-flash-lite',
   systemInstruction: SYSTEM_INSTRUCTION
 });
 
@@ -122,8 +122,11 @@ client.on('ready', () => {
 
 // Handle incoming messages
 client.on('message', async (msg) => {
-  // Prevent the bot from replying to group chats or status updates
-  if (msg.from.includes('@g.us') || msg.isStatus) return;
+  // Prevent the bot from replying to its own messages, group chats, status updates, or broadcasts
+  if (msg.fromMe || msg.from.includes('@g.us') || msg.isStatus || msg.from.includes('status')) return;
+
+  // Ignore empty or invalid messages
+  if (!msg.body || typeof msg.body !== 'string' || msg.body.trim() === '') return;
 
   const chat = await msg.getChat();
   console.log(`[Message Received] From: ${msg.from} (${chat.name}): "${msg.body}"`);
